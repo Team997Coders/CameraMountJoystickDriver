@@ -1,0 +1,35 @@
+plugins {
+  id 'java'
+  id 'application'
+}
+
+mainClassName = "Main"
+project.ext.set('nativeLibsDir', "$buildDir/libs/natives")
+
+repositories {
+  mavenCentral()
+}
+
+configurations {
+  nativeBundle
+}
+
+dependencies {
+  // https://mvnrepository.com/artifact/net.java.jinput/jinput
+  implementation 'net.java.jinput:jinput:2.0.9'
+  implementation 'com.github.purejavacomm:purejavacomm:1.0.1.RELEASE'
+  nativeBundle 'net.java.jinput:windows-plugin:2.0.9:natives-windows'
+}
+
+task extractNativeBundle(type: Sync) {
+  from {
+    configurations.nativeBundle.collect { zipTree(it) }
+  }
+  into file(project.nativeLibsDir)
+}
+
+assembleDist.dependsOn extractNativeBundle
+
+run {
+  systemProperty "java.library.path", project.nativeLibsDir
+}

@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - MiniPanTiltTeensy",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "CameraMountJoystickDriver",
+      "env": {
+        "Path": "${workspaceFolder}/build/libs/natives"
+      }
+    }
+  ]
+}
