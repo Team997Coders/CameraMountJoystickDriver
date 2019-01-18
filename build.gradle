@@ -18,7 +18,8 @@ dependencies {
   // https://mvnrepository.com/artifact/net.java.jinput/jinput
   implementation 'net.java.jinput:jinput:2.0.9'
   implementation 'com.github.purejavacomm:purejavacomm:1.0.1.RELEASE'
-  nativeBundle 'net.java.jinput:windows-plugin:2.0.9:natives-windows'
+  nativeBundle 'net.java.jinput:osx-plugin:2.0.9:natives-osx'
+//  nativeBundle 'net.java.jinput:windows-plugin:2.0.9:natives-windows'
 }
 
 task extractNativeBundle(type: Sync) {
@@ -31,5 +32,6 @@ task extractNativeBundle(type: Sync) {
 assembleDist.dependsOn extractNativeBundle
 
 run {
+  dependsOn extractNativeBundle
   systemProperty "java.library.path", project.nativeLibsDir
 }

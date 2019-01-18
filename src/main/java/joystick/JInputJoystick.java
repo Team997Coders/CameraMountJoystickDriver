@@ -161,7 +161,8 @@ public class JInputJoystick {
             Component component = components[i];
             
             // Add states of the buttons
-            if(component.getName().contains("Button"))
+            // 2nd or clause is a hack to accomodate OSX...getName() does not return the name of the class...figures
+            if(component.getName().contains("Button") || component.getIdentifier().getClass().toString().contains("Button"))
                 if(component.getPollData() == 1.0f)
                     buttonsValues.add(Boolean.TRUE);
                 else

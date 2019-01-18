@@ -21,7 +21,7 @@ public class Main {
     // Check if a joystick was found.
     if( !joystick.isControllerConnected() ){
       System.out.println("No controller found!");
-      System.exit(1);
+      System.exit(0);
     }
 
     // Create a teensy object.

@@ -6,9 +6,9 @@
       "request": "launch",
       "mainClass": "Main",
       "projectName": "CameraMountJoystickDriver",
-      "env": {
-        "Path": "${workspaceFolder}/build/libs/natives"
-      }
+      "vmArgs": [
+        "-Djava.library.path=${workspaceFolder}/build/libs/natives"
+      ]
     }
   ]
 }

@@ -195,6 +195,7 @@ public class MiniPanTiltTeensy {
     if (port != null) {
       try {
         out.flush();
+        port.setDTR(false);
         port.close();
       } catch (IOException e) {
         e.printStackTrace();
