@@ -18,8 +18,13 @@ dependencies {
   // https://mvnrepository.com/artifact/net.java.jinput/jinput
   implementation 'net.java.jinput:jinput:2.0.9'
   implementation 'com.github.purejavacomm:purejavacomm:1.0.1.RELEASE'
-  nativeBundle 'net.java.jinput:osx-plugin:2.0.9:natives-osx'
-//  nativeBundle 'net.java.jinput:windows-plugin:2.0.9:natives-windows'
+  if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+    nativeBundle 'net.java.jinput:windows-plugin:2.0.9:natives-windows'
+  } else if (System.getProperty("os.name").toLowerCase().contains("os x")) {
+    nativeBundle 'net.java.jinput:osx-plugin:2.0.9:natives-osx'
+  } else {
+    nativeBundle 'net.java.jinput:osx-plugin:2.0.9:natives-linux'
+  }
 }
 
 task extractNativeBundle(type: Sync) {
