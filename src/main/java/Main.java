@@ -47,17 +47,21 @@ public class Main {
       float yValueLeftJoystick = joystick.getYAxisValue();        
 
       // Center if button pushed
-      if (joystick.getButtonValue(CENTER_BUTTON)) {
-        if (!teensy.center()) {
-          System.out.println("Teensy disconnected!");
-          System.exit(1);
+      try {
+        if (joystick.getButtonValue(CENTER_BUTTON)) {
+          if (!teensy.center()) {
+            System.out.println("Teensy disconnected!");
+            System.exit(1);
+          }
+        } else {
+          // Otherwise slew
+          if (!teensy.slew(Math.round(xValueLeftJoystick * 100) * -1, Math.round(yValueLeftJoystick * 100))) {
+            System.out.println("Teensy disconnected!");
+            System.exit(1);
+          }
         }
-      } else {
-        // Otherwise slew
-        if (!teensy.slew(Math.round(xValueLeftJoystick * 100), Math.round(yValueLeftJoystick * 100))) {
-          System.out.println("Teensy disconnected!");
-          System.exit(1);
-        }
+      } catch (IndexOutOfBoundsException e) {
+        System.out.println("Center button not found...continuing.");
       }
 
       try {
