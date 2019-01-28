@@ -29,6 +29,10 @@ public class Main {
     try {
       // Get a reference to the MiniPanTiltTeensy
       teensy = new MiniPanTiltTeensy();
+      // Center it
+      teensy.center();
+      // TODO: Why do I need to do this twice...there is a bug at startup.
+      teensy.center();
     } catch (Exception e) {
       System.out.println(e.getMessage());
       System.exit(1);
@@ -46,6 +50,14 @@ public class Main {
       float xValueLeftJoystick = joystick.getXAxisValue();
       float yValueLeftJoystick = joystick.getYAxisValue();        
 
+      // Throw away tiny values in case joystick gives back small
+      // junk when zeroed.
+      if (xValueLeftJoystick > -0.02 && xValueLeftJoystick < 0.02) {
+        xValueLeftJoystick = 0;
+      }
+      if (yValueLeftJoystick > -0.02 && yValueLeftJoystick < 0.02) {
+        yValueLeftJoystick = 0;
+      }
       // Center if button pushed
       try {
         if (joystick.getButtonValue(CENTER_BUTTON)) {
